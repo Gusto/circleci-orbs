@@ -1,0 +1,31 @@
+{
+  "name": "@gusto/circleci-orbs",
+  "version": "1.0.0",
+  "description": "CircleCI orbs for Gusto",
+  "main": "index.js",
+  "repository": "git@github.com:Gusto/circleci-orbs.git",
+  "author": "Gusto",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "eslint-config-gusto": "^9.5.1",
+    "husky": "^3.0.3",
+    "lint-staged": "^9.2.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "prettier-eslint": "^9.0.0",
+    "prettier-eslint-cli": "^5.0.0"
+  },
+  "husky": {
+    "skipCI": false,
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "scripts": {
+    "eslint": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",
+    "lint": "run-p prettier eslint",
+    "lint:fix": "run-p 'prettier --write' 'eslint --fix'",
+    "prettier": "prettier-eslint '**/*.{graphql,json,md,yml}' --list-different"
+  }
+}
