@@ -11,7 +11,7 @@ for ORB in orbs/*; do
 
   if [[ $RETURN_CODE != 0 ]]; then
     echo ${orb} does not exist. Creating it.
-    circleci orb create $orb
+    circleci orb create $orb --no-prompt
   fi
   
   circleci orb publish ${path} $orb patch
