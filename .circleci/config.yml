@@ -27,15 +27,15 @@ orbs:
               paths:
                 - ~/.cache/yarn
 
-jobs:
-  lint:
-    executor: node
-    steps:
-      - circleci-orbs/install
-      - run: yarn lint
+    jobs:
+      lint:
+        executor: node
+        steps:
+          - install
+          - run: yarn lint
 
 workflows:
   version: 2
   build:
     jobs:
-      - lint
+      - circleci-orbs/lint
