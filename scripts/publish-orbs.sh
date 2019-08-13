@@ -9,6 +9,8 @@ for ORB in orbs/*; do
 
   circleci orb info $orb; RETURN_CODE=$?
 
+  echo Orb info return code: $RETURN_CODE
+
   if [[ $RETURN_CODE != 0 ]]; then
     echo ${orb} does not exist. Creating it.
     circleci orb create $orb --no-prompt
