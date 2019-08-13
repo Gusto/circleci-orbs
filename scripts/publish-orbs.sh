@@ -14,7 +14,7 @@ for ORB in orbs/*; do
     circleci orb create $orb --no-prompt
   fi
   
-  circleci orb publish ${path} $orb patch
+  circleci orb publish increment ${path} $orb patch
 
 #   if [[ $(git diff $COMMIT_RANGE --name-status | grep "$orbname") ]]; then
 #     echo "publishing ${orbname}"

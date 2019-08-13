@@ -53,6 +53,9 @@ workflows:
       - orbs/validate:
           name: validate
       - orbs/publish:
+          filters:
+            branches:
+              only: master
           name: publish
           requires:
             - lint
