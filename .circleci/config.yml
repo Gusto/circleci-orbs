@@ -37,12 +37,12 @@ orbs:
         executor: cli
         steps:
           - checkout
-          - run: ./scripts/validate-orbs.sh
+          - run: bash scripts/validate-orbs.sh
       publish:
         executor: cli
         steps:
           - checkout
-          - run: ./scripts/publish-orbs.sh
+          - run: bash scripts/publish-orbs.sh
 
 workflows:
   version: 2
@@ -52,3 +52,8 @@ workflows:
           name: lint
       - orbs/validate:
           name: validate
+      - orbs/publish:
+          name: publish
+          requires:
+            - lint
+            - validate
