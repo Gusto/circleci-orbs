@@ -23,9 +23,14 @@
     }
   },
   "scripts": {
+    "circle:validate": "run-p circle:config:validate circle:orbs:validate",
+    "circle:config:validate": "circleci config validate",
+    "circle:orbs:validate": "./scripts/pack-orbs.sh && ./scripts/validate-orbs.sh",
+    "circle:orbs:publish": "./scripts/pack-orbs.sh && ./scripts/publish-orbs.sh",
     "eslint": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",
     "lint": "run-p prettier eslint",
     "lint:fix": "run-p 'prettier --write' 'eslint --fix'",
-    "prettier": "prettier-eslint '**/*.{graphql,json,md,yml}' --list-different"
+    "prettier": "prettier-eslint '**/*.{graphql,json,md,yml}' --list-different",
+    "postinstall": "which circleci >/dev/null 2>&1 || echo 'Please install the circleci cli with `brew install circleci`.'"
   }
 }
