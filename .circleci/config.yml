@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  compare-url: iynere/compare-url@1.2.0
   orbs:
     executors:
       cli:
@@ -37,7 +38,16 @@ orbs:
         executor: cli
         steps:
           - checkout
-          - run: scripts/validate-orbs.sh
+          - run: ./scripts/validate-orbs.sh
+      publish:
+        executor: cli
+        steps:
+          - checkout
+          - compare-url/use:
+              command: ./scripts/publish-orbs.sh
+              step-name: Publish modified orbs
+      publish:
+
 
 workflows:
   version: 2
