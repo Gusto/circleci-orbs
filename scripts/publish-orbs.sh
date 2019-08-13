@@ -4,7 +4,6 @@ echo "Commit range: $COMMIT_RANGE"
 
 for ORB in orbs/*; do
   orbname=$(basename $ORB)
-  path=${ORB}/@orb.yml
   orb=$CIRCLE_NAMESPACE/${orbname}
 
   circleci orb info $orb; RETURN_CODE=$?
@@ -15,7 +14,10 @@ for ORB in orbs/*; do
     echo ${orb} does not exist. Creating it.
     circleci orb create $orb --no-prompt
   fi
+
+  path=${ORB}/orb.yml
   
+  circleci config pack ${ORB} > ${path}
   circleci orb publish increment ${path} $orb patch
 
 #   if [[ $(git diff $COMMIT_RANGE --name-status | grep "$orbname") ]]; then
