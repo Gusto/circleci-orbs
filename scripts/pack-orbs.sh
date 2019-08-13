@@ -3,7 +3,9 @@
 for ORB in orbs/*; do
   path=${ORB}/orb.yml
 
-  circleci orb validate ${path}; RETURN_CODE=$?
+  rm -f path
+  
+  circleci config pack ${ORB} > ${path}; RETURN_CODE=$?
 
   if [[ $RETURN_CODE != 0 ]]; then
   	exit 1
