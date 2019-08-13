@@ -46,8 +46,6 @@ orbs:
           - compare-url/use:
               command: ./scripts/publish-orbs.sh
               step-name: Publish modified orbs
-      publish:
-
 
 workflows:
   version: 2
