@@ -32,7 +32,9 @@ orbs:
         executor: node
         steps:
           - install
-          - run: yarn lint
+          - run:
+            name: Lint
+            command: yarn lint
 
 workflows:
   version: 2
