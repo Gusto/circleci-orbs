@@ -6,7 +6,7 @@ steps:
         - yarn-packages-{{ checksum "yarn.lock" }}
   - run:
       name: Install dependencies
-      command: yarn --frozen-lockfile && git diff --exit-code
+      command: yarn --frozen-lockfile && git diff --exit-code yarn.lock
   - save_cache:
       name: Save Yarn Package Cache
       key: yarn-packages-{{ checksum "yarn.lock" }}
