@@ -26,6 +26,7 @@
     "circle:execute": "circleci config process ./.circleci/config.yml > .circleci/processed-config.yml && circleci local execute -c .circleci/processed-config.yml --job",
     "circle:validate": "run-p circle:config:validate circle:orbs:validate",
     "circle:config:validate": "circleci config validate",
+    "circle:orbs:publish-dev": "./scripts/pack-orbs.sh && ./scripts/publish-dev-orbs.sh",
     "circle:orbs:validate": "./scripts/pack-orbs.sh && ./scripts/validate-orbs.sh",
     "circle:orbs:publish": "./scripts/pack-orbs.sh && ./scripts/publish-orbs.sh",
     "eslint": "eslint '**/*.{js,jsx,mjs,ts,tsx}'",

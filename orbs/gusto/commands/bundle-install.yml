@@ -1,0 +1,21 @@
+steps:
+  - checkout
+  - run:
+      name: Configure Bundler
+      command: |
+        echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+        source $BASH_ENV
+        gem install bundler
+  - restore_cache:
+      name: Restore Ruby Package Cache
+      keys:
+        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+  - run:
+      name: Install dependencies
+      command: |
+        bundle install --jobs=4 --retry=3 --path vendor/bundle && git diff --exit-code Gemfile.lock
+  - save_cache:
+      name: Save Ruby Package Cache
+      key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      paths:
+        - ./vendor/bundle

@@ -60,6 +60,6 @@ typings/
 # next.js build output
 .next
 
-# built orb config
+# built CircleCI configs
 orbs/*/orb.yml
 .circleci/processed-config.yml
