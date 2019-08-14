@@ -1,65 +1,42 @@
 version: 2.1
 
 orbs:
+  gusto: gusto/gusto@0.0.2
   orbs:
     executors:
       cli:
         docker:
           - image: circleci/circleci-cli
-      node:
-        docker:
-          - image: circleci/node:10
-
-    commands:
-      install:
-        steps:
-          - checkout
-          - restore_cache:
-              name: Restore Yarn Package Cache
-              keys:
-                - yarn-packages-{{ checksum "yarn.lock" }}
-          - run:
-              name: Install dependencies
-              command: yarn --frozen-lockfile && git diff --exit-code
-          - save_cache:
-              name: Save Yarn Package Cache
-              key: yarn-packages-{{ checksum "yarn.lock" }}
-              paths:
-                - ~/.cache/yarn
-
-    jobs:
-      validate:
-        executor: cli
-        steps:
-          - checkout
-          - run: bash scripts/pack-orbs.sh
-          - run: bash scripts/validate-orbs.sh
-      publish:
-        executor: cli
-        steps:
-          - checkout
-          - run: bash scripts/pack-orbs.sh
-          - run: bash scripts/publish-orbs.sh
 
 jobs:
   lint:
-    executor: orbs/node
+    executor: gusto/node
     steps:
-      - orbs/install
+      - gusto/yarn-install
       - run: yarn lint
+  validate:
+    executor: orbs/cli
+    steps:
+      - checkout
+      - run: bash scripts/pack-orbs.sh
+      - run: bash scripts/validate-orbs.sh
+  publish:
+    executor: orbs/cli
+    steps:
+      - checkout
+      - run: bash scripts/pack-orbs.sh
+      - run: bash scripts/publish-orbs.sh
 
 workflows:
   version: 2
   build:
     jobs:
       - lint
-      - orbs/validate:
-          name: validate
-      - orbs/publish:
+      - validate
+      - publish:
           filters:
             branches:
               only: master
-          name: publish
           requires:
             - lint
             - validate
