@@ -38,12 +38,14 @@ orbs:
         executor: cli
         steps:
           - checkout
-          - run: yarn orbs:validate
+          - run: bash scripts/pack-orbs.sh
+          - run: bash scripts/validate-orbs.sh
       publish:
         executor: cli
         steps:
           - checkout
-          - run: yarn orbs:publish
+          - run: bash scripts/pack-orbs.sh
+          - run: bash scripts/publish-orbs.sh
 
 workflows:
   version: 2
