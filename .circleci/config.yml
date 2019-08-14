@@ -28,12 +28,6 @@ orbs:
                 - ~/.cache/yarn
 
     jobs:
-      lint:
-        executor: node
-        steps:
-          - install
-          - run: yarn lint
-
       validate:
         executor: cli
         steps:
@@ -47,12 +41,18 @@ orbs:
           - run: bash scripts/pack-orbs.sh
           - run: bash scripts/publish-orbs.sh
 
+jobs:
+  lint:
+    executor: orbs/node
+    steps:
+      - orbs/install
+      - run: yarn lint
+
 workflows:
   version: 2
   build:
     jobs:
-      - orbs/lint:
-          name: lint
+      - lint
       - orbs/validate:
           name: validate
       - orbs/publish:
