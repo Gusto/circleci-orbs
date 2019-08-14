@@ -13,5 +13,5 @@ for ORB in orbs/*; do
     circleci orb create ${orb} --no-prompt
   fi
   
-  circleci orb publish ${path} $orb@dev:grex
+  circleci orb publish ${path} $orb@dev:$(date +%s)
 done
