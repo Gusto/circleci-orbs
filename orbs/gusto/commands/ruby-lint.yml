@@ -1,0 +1,3 @@
+steps:
+  - bundle-install
+  - run: bundle exec rubocop

@@ -1,1 +1,18 @@
 version: 2.1
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:10
+  ruby-2-3:
+    docker:
+      - image: circleci/ruby:2.3-node-browsers
+  ruby-2-4:
+    docker:
+      - image: circleci/ruby:2.4-node-browsers
+  ruby-2-5:
+    docker:
+      - image: circleci/ruby:2.5-node-browsers
+  ruby-2-6:
+    docker:
+      - image: circleci/ruby:2.6-node-browsers
