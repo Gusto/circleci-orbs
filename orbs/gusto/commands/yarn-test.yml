@@ -1,0 +1,13 @@
+steps:
+  - yarn-install
+  - run:
+      name: Run tests with coverage report
+      command: yarn run test
+      environment:
+        JEST_JUNIT_OUTPUT: 'coverage/jest/results.xml'
+  # collect coverage
+  - store_artifacts:
+      path: coverage
+
+  - store_test_results:
+      path: coverage
