@@ -1,21 +1,25 @@
+parameters:
+  gemfile:
+    type: string
+    default: Gemfile
 steps:
   - checkout
   - run:
       name: Configure Bundler
       command: |
-        echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+        echo 'export BUNDLER_VERSION=$(cat << parameters.gemfile >>.lock | tail -1 | tr -d " ")' >> $BASH_ENV
         source $BASH_ENV
         gem install bundler
   - restore_cache:
       name: Restore Ruby Package Cache
       keys:
-        - v1-dependencies-{{ checksum "Gemfile.lock" }}
+        - v1-dependencies-{{ checksum "<< parameters.gemfile >>.lock" }}
   - run:
       name: Install dependencies
       command: |
-        bundle install --jobs=4 --retry=3 --path vendor/bundle && git diff --exit-code Gemfile.lock
+        bundle install --jobs=4 --retry=3 --gemfile << parameters.gemfile >> --path vendor/bundle && git diff --exit-code << parameters.gemfile >>.lock
   - save_cache:
       name: Save Ruby Package Cache
-      key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      key: v1-dependencies-{{ checksum "<< parameters.gemfile >>.lock" }}
       paths:
         - ./vendor/bundle
