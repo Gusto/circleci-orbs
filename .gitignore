@@ -63,3 +63,4 @@ typings/
 # built CircleCI configs
 orbs/*/orb.yml
 .circleci/processed-config.yml
+.git/
